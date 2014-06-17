@@ -1,6 +1,6 @@
 # Application
 secret_key.txt
-settings_env.txt
+settings.txt
 
 # Mac
 *.DS_Store

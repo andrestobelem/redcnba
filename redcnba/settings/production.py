@@ -4,7 +4,7 @@ from .base import *
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(Path('/etc/secret_key.txt')) as f:
+with open(PROJECT_DIR.child('secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!

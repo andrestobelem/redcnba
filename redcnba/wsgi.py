@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "redcnba.settings.production")
+with open('../settings.txt') as f:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", f.read().strip())
 
 from django.core.wsgi import get_wsgi_application
 

@@ -80,7 +80,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # CUSTOM_USER
 
-LOGIN_REDIRECT_URL = '/exalumnos/'
+#LOGIN_REDIRECT_URL = '/exalumnos/'
 
 LOGIN_URL = '/accounts/login/'
 

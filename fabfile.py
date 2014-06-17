@@ -5,12 +5,12 @@ from fabric.api import local
 
 
 def runserver():
-    local('python manage.py runserver 0.0.0.0:8000 --settings redcnba.settings.local')
+    local('python manage.py runserver 0.0.0.0:8000')
 
 
 def run():
-    local('python manage.py runserver --settings redcnba.settings.local')
+    local('python manage.py runserver')
 
 
 def syncdb():
-    local('python manage.py syncdb --settings redcnba.settings.local')
+    local('python manage.py syncdb --noinput')
