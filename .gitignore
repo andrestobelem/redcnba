@@ -1,6 +1,13 @@
+# Application
+secret_key.txt
+
+# Mac
+*.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+db.*
 
 # C extensions
 *.so
@@ -41,6 +48,7 @@ coverage.xml
 .mr.developer.cfg
 .project
 .pydevproject
+.idea
 
 # Rope
 .ropeproject
