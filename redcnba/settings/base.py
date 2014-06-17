@@ -19,9 +19,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Templates
+# URL
 
-TEMPLATE_DIRS = [PROJECT_DIR.child('templates')]
+ROOT_URLCONF = 'redcnba.urls'
 
 # Application definition
 
@@ -32,8 +32,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     'django_extensions',
     'custom_user',
+    'exalumnos',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,10 +57,64 @@ MIDDLEWARE_CLASSES = (
 
 STATIC_URL = '/static/'
 
-ROOT_URLCONF = 'redcnba.urls'
+STATIC_ROOT = PROJECT_DIR.child('static')
 
-# AUTENTICACIÓN
+# Templates
+
+TEMPLATE_DIRS = [PROJECT_DIR.child('templates')]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+)
+
+# AUTH
 
 # CUSTOM_USER
 
+LOGIN_REDIRECT_URL = '/exalumnos/'
+
+LOGIN_URL = '/accounts/login/'
+
 AUTH_USER_MODEL = 'custom_user.EmailUser'
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email'],
+        'METHOD': 'js_sdk'  # instead of 'oauth2'
+    }
+}
+
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+
+ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# EMAIL
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

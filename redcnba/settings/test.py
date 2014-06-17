@@ -23,3 +23,7 @@ DATABASES = {
         'NAME': PROJECT_DIR.child('db.redcnba'),
     }
 }
+
+INSTALLED_APPS += (
+    'debug_toolbar',
+)

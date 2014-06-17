@@ -1,0 +1,39 @@
+[
+{
+    "pk": 1,
+    "model": "sites.site",
+    "fields": {
+        "domain": "http://localhost:8000/",
+        "name": "redcnba"
+    }
+},
+{
+    "pk": 1,
+    "model": "socialaccount.socialapp",
+    "fields": {
+        "name": "redcnba",
+        "sites": [
+            1
+        ],
+        "secret": "5ab93279db4b71505cf4036313599799",
+        "client_id": "224640781061417",
+        "key": "",
+        "provider": "facebook"
+    }
+},
+{
+    "pk": 1,
+    "model": "custom_user.emailuser",
+    "fields": {
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2014-06-17T20:38:17.891Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$50dWKbHgxTCB$DcqOdm86EwHakDLODR23D/x7XJV9gF04HsYvdy1TWJ0=",
+        "email": "admin@redcnba.uba.ar",
+        "date_joined": "2014-06-17T20:38:17.891Z"
+    }
+}
+]
