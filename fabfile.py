@@ -10,3 +10,7 @@ def runserver():
 
 def run():
     local('python manage.py runserver --settings redcnba.settings.local')
+
+
+def syncdb():
+    local('python manage.py syncdb --settings redcnba.settings.local')
