@@ -4,7 +4,7 @@ SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from unipath import Path
 
-PROJECT_DIR = Path(__file__).ancestor(2)
+PROJECT_DIR = Path(__file__).ancestor(3)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'custom_user',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,3 +51,9 @@ MIDDLEWARE_CLASSES = (
 STATIC_URL = '/static/'
 
 ROOT_URLCONF = 'redcnba.urls'
+
+# AUTENTICACIÓN
+
+# CUSTOM_USER
+
+AUTH_USER_MODEL = 'custom_user.EmailUser'

@@ -4,7 +4,7 @@ from .base import *
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR, 'redcnba/settings/secret_key.txt')) as f:
+with open(PROJECT_DIR.child('redcnba', 'settings', 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -20,6 +20,6 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.redcnba'),
+        'NAME': PROJECT_DIR.child('db.redcnba'),
     }
 }
