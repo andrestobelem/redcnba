@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'django_extensions',
+    'pipeline',
+    'widget_tweaks',
     'custom_user',
     'exalumnos',
 )
@@ -58,6 +60,24 @@ MIDDLEWARE_CLASSES = (
 STATIC_URL = '/static/'
 
 STATIC_ROOT = PROJECT_DIR.child('static')
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.FileSystemFinder',
+    'pipeline.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+    'pipeline.finders.CachedFileFinder',
+)
+
+# PIPELINE
+from ._pipeline import *
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = PROJECT_DIR.child('media')
 
 # Templates
 
@@ -118,3 +138,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Messages
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

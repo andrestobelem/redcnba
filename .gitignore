@@ -9,6 +9,7 @@ settings.txt
 __pycache__/
 *.py[cod]
 db.*
+db/
 
 # C extensions
 *.so
@@ -29,6 +30,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+bower_components/
 
 # Installer logs
 pip-log.txt

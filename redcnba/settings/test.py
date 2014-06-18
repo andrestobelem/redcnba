@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .base import *
+from ._base import *
 
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
