@@ -1,0 +1,28 @@
+{% extends "account/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Esperando activación" %} | {{ block.super }}{% endblock %}
+
+{% block body_class %}{% if block.super %} {{ block.super }}{% endif %}  Page--account--activar{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block page_header %}
+{% if not user.is_authenticated %}
+<div class="Page-header">
+  <h1>{% trans "Red CNBA" %}</h1>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block panel_title %}{% trans "Esperando activación" %}{% endblock %}
+
+{% block panel_body %}
+
+<p>
+  {% blocktrans %}
+    ¡Gracias por completar el formulario! Cuando tu cuenta sea activada vas a recibir un correo electrónico con instrucciones sobre cómo utilizar la Red CNBA.
+  {% endblocktrans %}
+</p>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+.jumbotron {
+
+  &--portada {
+    text-align:center;
+    background: @gray-light url(../images/bg__puerta-cnba--800x450.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    border-radius: 0;
+    padding-top: 50px;
+
+    @media screen and (min-width: @screen-sm-min) {
+      background-image: url(../images/bg__puerta-cnba--1280x720.jpg);
+      .container {
+        padding: 82px 105px;
+      }
+
+      .jumbotron-heading {
+        margin-bottom: 40px;
+
+        &-span {
+          font-weight: 300;
+        }
+      }
+
+      p.jumbotron-lead {
+        font-size: (@font-size-base * 1.75);
+      }
+    }
+
+    @media screen and (min-width: @screen-lg-min) {
+      background: url(../images/bg__puerta-cnba--1920x1080.jpg) no-repeat center center;
+      background-size: cover;
+      .container {
+        padding: 164px 152px;
+      }
+    }
+  }
+
+  &-search {
+
+    @media screen and (min-width: @screen-sm-min) {
+      margin-top: 60px;
+
+      .form-control {
+        .input-size(floor(@input-height-large * 1.3); floor(@padding-large-vertical  * 1.3); floor(@padding-large-horizontal  * 1.3); floor(@font-size-large * 1.1); @line-height-large; @border-radius-base);
+      }
+
+      .btn {
+        .button-size(floor(@padding-large-vertical  * 1.3); floor(@padding-large-horizontal  * 1.3); floor(@font-size-large * 1.3); @line-height-large; @border-radius-base)
+      }
+    }
+  }
+}

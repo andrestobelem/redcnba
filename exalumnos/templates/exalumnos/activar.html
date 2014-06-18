@@ -1,0 +1,83 @@
+{% extends "account/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans 'Activá tu cuenta' %} | {{ block.super }}{% endblock %}
+
+{% block body_class %}{% if block.super %} {{ block.super }}{% endif %}  Page--account--activar{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block page_header %}
+<div class="Page-header">
+  <h1>{% trans "Red CNBA" %}</h1>
+</div>
+{% endblock %}
+
+{% block panel_title %}{% trans 'Activá tu cuenta' %}{% endblock %}
+
+{% block panel_body %}
+{% blocktrans %}
+<p>
+  Gracias por verificar tu dirección de correo electrónico.</p>
+<p>
+Para terminar la creación de tu cuenta necesitamos que completes el siguiente formulario. Los datos nos van a permitir identificarte como ex alumno del Colegio Nacional de Buenos Aires.
+</p>
+{% endblocktrans %}
+
+{% with form=activar_form %}
+<form class="AccountForm" action="{% url 'exalumnos:activar' %}" method="POST" role="form">
+  {% csrf_token %}
+
+  {% include form_errors %}
+
+  {% with field=form.nombre %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    {% include field_elements %}
+    {% render_field field class="form-control" placeholder=field.label %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.apellido %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    {% include field_elements %}
+    {% render_field field class="form-control" placeholder=field.label %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.fecha_de_nacimiento %}
+  <div class="form-group form-group--multi-selects{% if field.errors %} has-error{% endif %}">
+    {% include field_elements %}
+    {% render_field field class="form-control" %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.promocion %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" placeholder="1999" %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.tipo_de_documento %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.numero_de_documento %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" placeholder=field.label type="number" %}
+  </div>
+  {% endwith %}
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-lg">{% trans 'Activar cuenta' %}</button>
+  </div>
+
+</form>
+{% endwith %}
+
+{% endblock %}
+

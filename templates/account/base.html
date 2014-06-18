@@ -1,0 +1,53 @@
+{% extends "exalumnos/__base.html" %}
+{% load i18n account %}
+
+{% block body_class %}{% if block.super %} {{ block.super }}{% endif %}  Page--account{% endblock %}
+
+{% block nav %}
+  {% if user.is_authenticated %}{{ block.super }}{% endif %}
+{% endblock %}
+
+{% block messages %}{% endblock %}
+
+{% block content %}
+  {% with field_elements="exalumnos/_field-elements.html" field_label="exalumnos/_field-label.html" field_help="exalumnos/_field-help.html" field_errors="exalumnos/_field-errors.html" form_errors="exalumnos/_form-errors.html" %}
+
+  {% block page_header %}
+  {% if not user.is_authenticated %}
+  <div class="Page-header">
+    <h1>{% trans "Red CNBA" %}</h1>
+  </div>
+  {% endif %}
+  {% endblock %}
+
+  <div class="container Page-container">
+    <div class="Page-bar Page-bar--single">
+
+       <div class="Panel Panel--account">
+
+        <div class="Panel-heading">
+          <h2 class="Panel-title">
+            {% block panel_title %}{% endblock %}
+          </h2>
+        </div><!-- .Panel-heading -->
+
+        <div class="Panel-body">
+
+          {% block panel_messages %}
+            {% if messages %}
+            {%for message in messages %}
+              {% include "exalumnos/_messages.html" %}
+            {% endfor %}
+            {% endif %}
+          {% endblock %}
+
+          {% block panel_body %}{% endblock %}
+
+        </div><!-- .Panel-body -->
+      </div><!-- .Panel -->
+
+    </div><!-- .Page-bar -->
+  </div><!-- .Page-container -->
+
+  {% endwith %}
+{% endblock %}

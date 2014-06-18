@@ -1,0 +1,23 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Verificá tu dirección de correo electrónico" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Verificá tu dirección de correo" %}{% endblock %}
+
+{% block panel_body %}
+
+  {% blocktrans %}
+  <p>
+    Te enviamos un mensaje a la dirección de correo electrónico que indicaste.
+  </p>
+  <p>
+     Para verificar que la dirección te pertenece, visitá el enlace que figura en el mensaje.
+   </p>
+   <p>
+     Por favor, contactanos si no recibiste el correo en el transcurso de los próximos minutos.
+  </p>
+  {% endblocktrans %}
+  
+{% endblock %}

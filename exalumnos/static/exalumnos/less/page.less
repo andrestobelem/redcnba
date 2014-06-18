@@ -1,0 +1,128 @@
+html {
+  // Para que el footer sea "sticky"
+  position: relative;
+  min-height: 100%;
+}
+
+.Page {
+  padding-top: (@navbar-height + 20px);
+  padding-bottom: 50px; // Equivalente a la altura el footer
+  background-color:#f2f2f2;
+
+  // Clases para usar como extends o mixins
+  // (o directamente en el HTML, si no hay otra opción)
+  //
+}
+
+.Page--withJumbotron {
+  padding-top: @navbar-height;
+}
+
+.Page--withoutNav  {
+  padding-top: 0;
+}
+
+.Page--withNav  {
+  padding-top: (@navbar-height + 20px);
+}
+
+// Clases basadas en páginas particulare (o tiipos de páginas)
+//
+.Page--portada  {
+  .Page--withJumbotron;
+  background-color:#fff;
+}
+
+.Page--account {
+
+  &.Page--isAuthenticatedUser {
+    .Page--withNav;
+  }
+
+  &.Page--isAnonymousUser {
+    .Page--withoutNav;
+  }
+
+}
+
+.Page--account--activar {
+
+  // Excepción: usuario está logueado pero no le mostramos la navegación
+  &.Page--isAuthenticatedUser {
+    .Page--withoutNav;
+  }
+
+}
+
+// Elementos
+//
+
+.Page-container {
+  .Page--portada & {
+    background-color: #fff;
+  }
+}
+
+.Page-header {
+  &:extend(.page-header all);
+
+  .Page--account & {
+    margin: 0;
+    border: none;
+    text-align: center;
+
+    background: transparent url(../images/bg__puerta-cnba--800x450.jpg) no-repeat center center;
+    background-size: cover;
+    @height: 250px;
+    height: @height;
+    margin-bottom: -(@height / 3);
+    padding-top: ceil(@height * 1/3);
+
+    @media screen and (min-width: @screen-sm-min) {
+      background-image: url(../images/bg__puerta-cnba--1280x720.jpg);
+    }
+
+  }
+
+  .Page--account & h1 {
+    margin: 0;
+    color: #fff;
+  }
+
+}
+
+.Page-footer  {
+  position: absolute;
+  bottom: 0;
+  width:100%;
+  background-color: #f2f2f2;
+  padding: 15px 0;
+  min-height:50px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.Page-bar--single {
+  // La utilizamos para crear una columna centrada, con un ancho fijo.
+  margin: 0 auto;
+
+  @media (min-width: @screen-xs-min) {
+    width: percentage((8 / @grid-columns)); // 66.66%
+  }
+
+  @media (min-width: @screen-sm-min) {
+    width: percentage((6 / @grid-columns)); // 50%
+  }
+
+  @media (min-width: @screen-md-min) {
+    width: percentage((4 / @grid-columns)); // 33.33%
+
+    .Page--account--email & {
+      width: percentage((6 / @grid-columns)); // 50%
+    }
+
+  }
+}
+

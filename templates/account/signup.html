@@ -1,0 +1,72 @@
+{% extends "account/base.html" %}
+{% load i18n account widget_tweaks %}
+
+{% block title %}{% trans "Crear una cuenta" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Creá tu cuenta" %}{% endblock %}
+
+{% block panel_body %}
+
+  <form class="AccountForm AccountForm--signup" action="{% url 'account_signup' %}" method="post" role="form">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+
+    {% include form_errors %}
+
+    {% with field=form.email %}
+      <div class="form-group form-group--text{% if field.errors %} has-error{% endif %}">
+        {% include field_elements %}
+        {% render_field field class="form-control" %}
+      </div>
+    {% endwith %}
+
+    {% with field=form.password1 %}
+    <div class="form-group form-group--password{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" %}
+    </div>
+    {% endwith %}
+
+    {% with field=form.password2 %}
+    <div class="form-group form-group--password{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" placeholder=field.label %}
+    </div>
+    {% endwith %}
+
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <div class="form-actions">
+      <button class="btn btn-primary btn-lg type="submit">{% trans "Crear tu cuenta" %}</button>
+    </div>
+
+  </form>
+
+  {% if socialaccount.providers  %}
+
+  <div class="SocialAccounts">
+    <p>También podés iniciar sesión con tu cuenta de&hellip;</p>
+    <ul class="SocialAccounts-providersList">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+  </div><!-- .SocialAccounts -->
+
+  {% endif %}
+
+  <div class="Panel-footnote">
+    {% blocktrans %}
+    <p>
+      ¿Ya tenés cuenta? <a href="{{ login_url }}">Iniciá sesión</a>
+    </p>
+    {% endblocktrans %}
+  </div><!-- .Panel-footnote -->
+
+{% endblock %}
+
+{% if socialaccount.providers  %}
+  {% block js_bottom %}
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {{ block.super }}
+  {% endblock %}
+{% endif %}

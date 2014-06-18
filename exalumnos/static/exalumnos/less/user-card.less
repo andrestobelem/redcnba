@@ -1,0 +1,72 @@
+.UserCard {
+
+  // Vars
+  @user-card-heading: #293e5d;
+  @user-card-promocion-division-color: #3f818d;
+
+  &:extend(.clearfix all);
+  background-color: #fff;
+  margin-bottom:30px;
+
+  &-link {
+    display: block;
+    color: inherit;
+    
+    &:hover {
+      text-decoration: none;
+    }
+
+  }
+
+  &-img {
+
+    .UserCard &Wrapper {
+      float: left;
+      overflow: hidden;
+      margin-right: 25px;
+    }
+
+    .UserCard--large &Wrapper {
+      width: 262px;
+      height: 262px;
+    }
+
+     .UserCard--small &Wrapper {
+      width: 133px;
+      height: 133px;
+    }
+  }
+
+  &-body {
+    .media-body;
+  }
+
+  &-heading {
+    margin-top: 10px;
+    color: @user-card-heading;
+    
+    .UserCard--large & {
+        margin-bottom: 40px;
+    }
+  }
+
+  &--large &-dataBlock {
+    font-size: @font-size-large;
+  }
+
+  &-dataGroup--promocion-division {
+    display:block;
+    color: @user-card-promocion-division-color;
+
+    .UserCard--large & {
+        margin-bottom: 40px;
+    }
+  }
+
+  &-dataGroup--ciudad-pais,
+  &-dataGroup--ocupacion {
+    display:block;
+    color: @gray-light;
+  }
+  
+}

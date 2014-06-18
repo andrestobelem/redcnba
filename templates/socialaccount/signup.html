@@ -1,0 +1,34 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block title %}{% trans "Creá tu cuenta" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Creá tu cuenta" %}{% endblock %}
+
+{% block panel_body %}
+
+{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}
+<p>Estás a un paso de usar tu cuenta de {{provider_name}} para iniciar sesión en la RedCNBA. Para finalizar, completá el siguiente formulario:</p>
+{% endblocktrans %}
+
+<form class="AccountForm" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+  {% csrf_token %}
+  {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+      {% include field_elements %}
+      {% render_field field class="form-control" placeholder=field.label %}
+    </div>
+  {% endfor %}
+
+  <div class="form-actions">
+    <button class="btn btn-primary btn-lg" type="submit">{% trans "Crear tu cuenta" %}</button>
+  </div>
+
+</form>
+
+{% endblock %}

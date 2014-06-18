@@ -1,0 +1,21 @@
+//
+// Mixins
+// --------------------------------------------------
+
+// Hex to RGBA converter
+// http://stackoverflow.com/a/14667154/2461947
+.hex-to-rgba-bg(@color,@alpha){
+  @myred:red(@color);
+  @mygreen:green(@color);
+  @myblue:blue(@color);
+  background-color: @color;
+  background-color: rgba(@myred,@mygreen,@myblue,@alpha);
+}
+
+.hex-to-rgba-color(@color,@alpha){
+  @myred:red(@color);
+  @mygreen:green(@color);
+  @myblue:blue(@color);
+  color: @color;
+  color: rgba(@myred,@mygreen,@myblue,@alpha);
+}

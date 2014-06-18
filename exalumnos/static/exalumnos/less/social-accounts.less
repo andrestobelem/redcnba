@@ -1,0 +1,39 @@
+.SocialAccounts {
+  text-align: center;
+
+  @facebook-color: #3b5998;
+  @google-color: #d34836;
+
+  &-providersList {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &-providersListItem {
+    display: inline-block;
+  }
+
+  &-providerBtn {
+    .btn;
+    .btn-lg;
+    &--google {
+      .button-variant(#fff, @google-color, transparent);
+    }
+    &--facebook {
+      .button-variant(#fff, @facebook-color, transparent);
+    }
+  }
+
+  &-providerLabel {
+    .label;
+    &--google {
+      .label-variant(@google-color);
+    }
+    &--facebook {
+      .label-variant(@facebook-color);
+    }
+  }
+
+
+
+}

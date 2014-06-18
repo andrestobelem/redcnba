@@ -1,0 +1,106 @@
+{% extends "exalumnos/__base.html" %}
+{% load i18n staticfiles %}
+
+{% block body_attrs %}{% with body_class="Page" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block title %}{% trans 'Resultados' %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container Page-container">
+  <div class="row">
+      
+    <div class="Page-mainbar col-xs-12 col-sm-9">
+
+      <div class="page-header">
+        <h1>{% trans 'Resultados' %} para la búsqueda: <small>{{ search_term }}</small></h1>
+      </div>
+      
+      {% if exalumnos %}
+        <div class="UserCardList">
+          {% for exalumno in exalumnos %}
+            <div class="UserCard UserCard--small">
+              <a class="UserCard-link UserCard-imgWrapper UserCard-link--img" href="{% url 'exalumnos:perfil' exalumno.object.id %}">
+                <img class="UserCard-img" width="133" src="{% static 'exalumnos/images/avatar--mbutelman.jpg' %}" />
+              </a>
+              <div class="UserCard-body">
+                <h3 class="UserCard-heading"><a class="UserCard-link UserCard-link--heading" href="{% url 'exalumnos:perfil' exalumno.object.id %}">{{ exalumno.object.nombre }} {{ exalumno.object.apellido }}</a></h3>
+                <p class="UserCard-dataBlock">                    
+                  {% if exalumno.object.promocion or exalumno.object.division %}
+                  <span class="UserCard-dataGroup UserCard-dataGroup--promocion-division">
+                    {% if exalumno.object.promocion %}
+                      <span class="UserCard-data UserCard-data--promocion">
+                        {{ exalumno.object.promocion }}{% if exalumno.object.division %},{% endif %}
+                      </span>
+                    {% endif %}                                        
+                    {% if exalumno.object.division %}
+                      <span class="UserCard-data UserCard-data--division">
+                        {{ exalumno.object.division }}
+                      </span>
+                    {% endif %}
+                      <br />
+                  </span>
+                  {% endif %}
+
+                  {# if exalumno.object.ciudad or exalumno.object.pais #}
+                  <span class="UserCard-dataGroup UserCard-dataGroup--ciudad-pais">
+                    {# if exalumno.object.ciudad #}
+                      <span class="UserCard-data UserCard-data--ciudad">
+                        {{ exalumno.object.ciudad }} Buenos Aires{# if exalumno.object.pais #}, {# endif #}
+                      </span>
+                    {# endif #}
+                    {# if exalumno.object.pais #}
+                      <span class="UserCard-pais UserCard-data--pais">
+                        {{ exalumno.object.pais }} Argentina
+                      </span>
+                    {# endif #}
+                    <br />
+                  </span>
+                  {# endif #}
+                  
+                  {# if exalumno.object.ocupacion #}
+                  <span class="UserCard-dataGroup UserCard-dataGroup--ocupacion">
+                    <span class="UserCard-data UserCard-data--ocupacion">
+                      {{ exalumno.object.ocupacion }} Licenciado en Letras
+                    </span>
+                  {# endif #}
+                  </span>
+                </p>
+              </div><!-- UserCard-body -->
+            </div><!-- UserCard -->
+          {% endfor %}
+
+          {% if is_paginated %}
+            {% with page_obj=exalumnos %}
+            <ul class="pagination">
+              {% if page_obj.has_previous %}
+                <li><a href="?q={{ search_term }}&amp;page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+                <li class="disabled"><a href="#">&laquo;</a></li>
+              {% endif %}
+
+              {% for num in page_obj.paginator.page_range %}
+                {% ifequal num page_obj.number %}
+                  <li class="active"><a href="#">{{ num }}<span class="sr-only">(current)</span></a></li>
+                {% else %}
+                  <li><a href="?q={{ search_term }}&amp;page={{ num }}">{{ num }}</a></li>
+                {% endifequal %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                <li><a href="?q={{ search_term }}&amp;page={{ page_obj.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                <li class="disabled"><a href="#">&raquo;</a></li>
+              {% endif %}
+            <ul>
+            {% endwith %}
+          {% endif %}
+        </div><!-- UserCardList -->
+      {% else %}
+        <p>{% blocktrans %}No hay resultados para el término de búsqueda: {{ search_term }}{% endblocktrans %}.</p>
+      {% endif %}
+
+    </div><!-- .Page-mainbar -->
+    
+  </div><!-- .row -->
+</div><!-- .Page-container -->
+{% endblock %}

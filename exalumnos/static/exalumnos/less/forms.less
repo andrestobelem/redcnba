@@ -1,0 +1,153 @@
+.Form,
+form {
+
+  .errorlist {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .form-group {
+
+    .alert {
+      padding: 5px;
+    }
+
+    [class*="text-"] {
+      padding: 0 5px;
+    }
+
+    .alert,
+    [class*="text-"] {
+      font-size: @font-size-small;
+      margin-bottom: 4px;
+    }
+  }
+}
+
+p + form {
+  margin-top: 20px;
+}
+
+.form-group--multi-selects {
+
+  .control-label {
+    display: block;
+    margin-bottom: 0; // Compensamos el margin-top de los selects;
+  }
+
+  select {
+    .form-control;
+    .input-lg;
+    margin-top: 5px;
+    @media (min-width: @screen-xs-min) {
+      display: inline-block;
+      width: auto; // Prevent labels from stacking above inputs in `.form-group`
+      vertical-align: middle;
+    }
+  }
+}
+
+.form-control {
+  &:focus {
+    .box-shadow(none);
+  }
+}
+
+.input-sm {
+  border-radius: 2px;
+}
+
+.help-text {
+  &--shortLink {
+    font-size: @font-size-small;
+    margin-top: 4px;
+  }
+}
+
+.form-actions {
+  margin: 20px 0;
+
+  .btn {
+    margin-bottom: 4px;
+  }
+}
+
+.AccountForm {
+  &:extend(.Form all);
+
+  .form-group--text label,
+  .form-group--password label {
+    .sr-only;
+  }
+
+  .form-group--password  {
+    position: relative;
+
+    .help-text--forgotPassword {
+      height: @input-height-large;
+      padding: @padding-large-vertical @padding-large-horizontal;
+      line-height: @input-height-large - (@padding-large-vertical * 2);
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+    }
+  }
+
+  .checkbox label,
+  .radio label {
+    display:block; // Para que el text-align surta efecto.
+    text-align: left;
+  }
+
+  .form-control {
+    .input-lg;
+  }
+
+  .form-actions {
+    text-align:center;
+  }
+
+}
+
+
+// Twitter Typeahead
+
+.twitter-typeahead
+ {
+  display: block;
+  position: relative;
+  direction: ltr;
+
+  .tt-input {
+    position: relative;
+    vertical-align: top;
+    background-color: transparent;
+  }
+
+  .jumbotron-search .input-group & .tt-input,
+  .navbar-form .input-group & .tt-input {
+    // Restauro bordes redondeados que son removidos por una regla más específica
+    border-top-left-radius: @border-radius-base;
+    border-bottom-left-radius: @border-radius-base;
+    width: 100%;
+  }
+
+  .tt-hint {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: @input-bg;
+    border: none;
+  }
+
+  .jumbotron-search .input-group & .tt-hint,
+  .navbar-form .input-group & .tt-hint {
+    width: 100%;
+  }
+
+}
+

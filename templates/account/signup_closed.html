@@ -1,0 +1,16 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Registración cerrada" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Registración cerrada" %}{% endblock %}
+
+{% block panel_body %}
+
+  {% blocktrans %}
+  <p>La creación de usuarios está cerrada actualmente.</p>
+  {% endblocktrans %}
+
+{% endblock %}
+
+

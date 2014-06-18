@@ -1,0 +1,243 @@
+{% extends "exalumnos/__base.html" %}
+{% load i18n staticfiles compressed widget_tweaks %}
+
+{% block css %}
+    {{ block.super }}
+    {% compressed_css 'selectize' %}
+{% endblock %}
+
+{% block body_attrs %}{% with body_class="Page" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block title %}{{ exalumno.nombre }} {{ exalumno.apellido }} | {% trans 'Editar perfil' %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container Page-container">
+  <div class="row">
+
+    <div class="Page-mainbar col-xs-12">
+
+      <div class="panel panel--userProfile panel--seccionInformacionBasica">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Información básica' %}</h3>
+        </div><!-- .panel--heading -->
+        <div class="panel-body">
+
+          {% with form=exalumno_form %}
+          <form class="PerfilForm InformacionBasicaForm"  action="{% url 'exalumnos:perfil_editar'  exalumno.id %}" method="POST" role="form">
+            {% csrf_token %}
+
+            <!-- NO SE COMO INCLUIRLOS BIEN -->
+            {% include "exalumnos/_form-errors.html" %}
+            <!-- -->
+
+            {% with field=form.nombre %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.apellido %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.apodo %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.fecha_de_nacimiento %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field type="date" class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.sexo %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            <button type="submit" class="btn">{% trans 'Guardar' %}</button>
+
+        </div><!-- .panel--body -->
+      </div><!-- .panel--seccionInformacionBasica -->
+
+     <div class="panel panel--userProfile panel--seccionCNBA">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'CNBA' %}</h3>
+        </div><!-- .panel--heading -->
+        <div class="panel-body">
+
+            {% with field=form.promocion %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.division %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.hizo_sexto %}
+            <div class="checkbox">
+              {{ field.errors }}
+              <label id="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% render_field field %}
+              </label>
+            </div>
+            {% endwith %}
+
+            {% with field=form.deportes %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.talleres %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.recuerdos %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.participa_en_el_torneo %}
+            <div class="checkbox">
+              {{ field.errors }}
+              <label id="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% render_field field %}
+              </label>
+            </div>
+            {% endwith %}
+
+            {% with field=form.es_socio %}
+            <div class="checkbox">
+              {{ field.errors }}
+              <label id="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% render_field field %}
+              </label>
+            </div>
+            {% endwith %}
+
+            {% with field=form.esta_empadronado %}
+            <div class="checkbox">
+              {{ field.errors }}
+              <label id="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% render_field field %}
+              </label>
+            </div>
+            {% endwith %}
+
+            <button type="submit" class="btn">{% trans 'Guardar' %}</button>
+
+        </div><!-- .panel--body -->
+      </div><!-- .panel--seccionCNBA -->
+
+      <div class="panel panel--userProfile panel--seccionSobreVos">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Sobre vos' %}</h3>
+        </div><!-- .panel--heading -->
+        <div class="panel-body">
+
+            {% with field=form.descripcion %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.introduccion %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control deportes" %}
+            </div>
+            {% endwith %}
+
+            {% with field=form.intereses %}
+            <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field %}
+            </div>
+            {% endwith %}
+            <button type="submit" class="btn">{% trans 'Guardar' %}</button>
+
+          </form>
+          {% endwith %}
+
+        </div><!-- .panel--body -->
+      </div><!-- .panel--seccionSobreVos -->      
+      
+    </div><!-- .Page-mainbar -->
+
+  </div><!-- .row -->
+</div><!-- .Page-container -->  
+{% endblock %}
+
+{% block js_bottom %}
+  {{ block.super }}
+  {% compressed_js 'selectize' %}
+
+   <script>
+    $('#id_deportes').selectize({
+        plugins: ['remove_button']
+    });
+   </script>
+
+   <script>
+    $('#id_talleres').selectize({
+        plugins: ['remove_button']
+    });
+   </script>
+
+   <script>
+    $('#id_intereses').selectize({
+        delimiter: ',',
+        persist: false,
+        plugins: ['remove_button'],
+        create: function(input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    });
+   </script>
+
+{% endblock %}
+

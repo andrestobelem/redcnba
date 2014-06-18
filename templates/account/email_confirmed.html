@@ -1,0 +1,18 @@
+{% extends "account/base.html" %}
+{% load i18n account %}
+
+{% block title %}{% trans "Dirección de correo electrónico confirmada" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Dirección de correo electrónico confirmada" %}{% endblock %}
+
+{% block panel_body %}
+        
+  {% user_display email_address.user as user_display %}
+
+  {% blocktrans with email_address.email as email %}
+  <p>
+    Confirmaste que <strong>{{ email }}</strong> es una dirección de correo electrónico para el usuario {{ user_display }}.
+  </p>
+  {% endblocktrans %}
+
+{% endblock %}

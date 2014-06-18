@@ -1,0 +1,82 @@
+{% extends "account/base.html" %}
+{% load i18n account widget_tweaks %}
+
+{% block title %}{% trans "Iniciar sesión en Red CNBA" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans 'Iniciá sesión' %}{% endblock %}
+
+{% block panel_body %}
+
+<form class="AccountForm AccountForm--login" action="{% url 'account_login' %}" method="POST" role="form">
+  {% csrf_token %}
+  {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+  {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  {% include form_errors %}
+
+  {% with field=form.login %}
+  <div class="form-group form-group--text{% if field.errors %} has-error{% endif %}">
+    {% include field_elements %}
+    {% render_field field class="form-control" %}
+  </div>
+  {% endwith %}
+
+  {% with field=form.password %}
+  <div class="form-group form-group--password{% if field.errors %} has-error{% endif %}">
+    {% include field_elements %}
+    {% render_field field class="form-control" %}
+    <span class="help-text help-text--forgotPassword help-text--shortLink">
+      <a href="{% url 'account_reset_password' %}">{% trans '(¿la olvidaste?)' %}</a>
+    </span>
+  </div>
+  {% endwith %}
+
+  {% with field=form.remember %}
+  <div class="checkbox{% if field.errors %} has-error{% endif %}">
+    {% include field_errors %}
+    <label>
+    {% render_field field checked="checked" %} {% trans 'Mantener sesión abierta' %}
+    </label>
+  </div>
+  {% endwith %}
+
+  <div class="form-actions">
+    <button class="btn btn-primary btn-lg" type="submit" >{% trans 'Iniciar sesión' %}</button>
+  </div>
+</form>
+
+{% if socialaccount.providers  %}
+
+  <div class="SocialAccounts">
+    {% blocktrans %}
+    <p>
+      También podés iniciar sesión con tu cuenta de&hellip;
+    </p>
+    {% endblocktrans %}
+    <ul class="SocialAccounts-providersList">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
+  </div><!-- .SocialAccounts -->
+
+{% endif %}
+
+  <div class="Panel-footnote">
+    {% blocktrans %}
+    <p>
+      ¿Todavía no tenés una cuenta? Entonces, <a href="{{ signup_url }}">creá una nueva</a>
+    </p>
+    {% endblocktrans %}
+  </div><!-- .Panel-footnote -->
+
+{% endblock %}
+
+{% if socialaccount.providers  %}
+  {% block js_bottom %}
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {{ block.super }}
+  {% endblock %}
+{% endif %}
+
+

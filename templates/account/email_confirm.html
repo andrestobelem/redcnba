@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load i18n account widget_tweaks %}
+
+{% block title %}{% trans "Verificar dirección de correo electrónico" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Verificá tu dirección de&nbsp;correo" %}{% endblock %}
+
+{% block panel_body %}
+
+  {% if confirmation %}
+
+    {% user_display confirmation.email_address.user as user_display %}
+
+    {% blocktrans with confirmation.email_address.email as email %}
+    <p>
+	Para confirmar la creación de una cuenta con la dirección <strong>{{ email }}</strong> hacé clic en el siguiente botón:
+    </p>
+    {% endblocktrans %}
+
+    <form class="AccountForm" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+      {% csrf_token %}
+
+      {% include form_errors %}
+
+      <div class="form-actions">
+        <button class="btn btn-primary btn-lg" type="submit">{% trans 'Confirmar' %}</button>
+      </div>
+    </form>
+
+  {% else %}
+
+    {% url 'account_email' as email_url %}
+
+    {% blocktrans %}
+    <p>
+      Este enlace de confirmación de correo electrónico expiró o es inválido. Por favor, <a href="{{ email_url}}">gestioná un nuevo pedido de confirmación de correo electrónico</a>.
+    </p>
+    {% endblocktrans %}
+
+  {% endif %}
+
+{% endblock %}
+

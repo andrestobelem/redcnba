@@ -1,0 +1,86 @@
+{% extends "exalumnos/__base.html" %}
+{% load i18n staticfiles %}
+
+{% block body_class %}{% if block.super %}{{ block.super }} {% endif %}Page--portada{% endblock %}
+
+{% block messages %}{% endblock %}
+
+{% block content %}
+<div class="jumbotron jumbotron--portada">
+  <div class="container">
+
+    {% if messages %}
+    <div class="MessagesList">
+      {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert--message Message">
+              {{message}}
+        </div>
+      {% endfor %}
+    </div><!-- .MessagesList -->
+    {% endif %}
+
+  <h1 class="jumbotron-heading">{% blocktrans %}Encontrá <span class="jumbotron-heading-span">ex alumnos</span>{% endblocktrans %}</h1>
+  {% comment %}
+  <p class="lead jumbotron-lead">
+    {% blocktrans %}
+    La Red <abbr title="Colegio Nacional de Buenos Aires">CNBA</abbr> te permite buscar ex alumnos por nombre, promoción, ocupación, intereses y lugar de residencia.
+    {% endblocktrans %}
+  </p>
+  {% endcomment %}
+
+  <form class="jumbotron-search form-inline" action="{% url 'haystack_search' %}" method="GET" role="search">
+    <div class="input-group">
+      <input class="form-control typeahead" type="text" name="q" value="{{ search_term }}" placeholder="Buscalos por nombre, promoción, ocupación, intereses o lugar de residencia" />
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search" ></span> <span class="sr-only" >{% trans 'Buscar' %}</span></button>
+      </span>
+    </div>
+  </form>
+
+  </div><!-- .container -->
+</div><!-- .jumbotron -->
+
+<div class="container Page-container">
+  <div class="FeaturettesList row">
+
+    <div class="Featurette col-sm-4">
+      <img class="Featurette-img" src="{% static 'exalumnos/images/featurette__conectate--230x145.png' %}"  alt="Avioncito y mundo" />
+      <h2 class="Featurette-heading">{% trans 'Conectate' %}</h2>
+      <p class="Featurette-paragraph">
+        {% blocktrans %}
+        con ex alumnos en diferentes ciudades y países alrededor del mundo
+        {% endblocktrans %}
+      </p>
+
+    </div><!-- Featurette -->
+
+    <div class="Featurette col-sm-4">
+      <img class="Featurette-img" src="{% static 'exalumnos/images/featurette__encontrate--230x145.png' %}"  alt="Avioncito y mundo" />
+      <h2 class="Featurette-heading">{% trans 'Encontrate' %}</h2>
+      <p class="Featurette-paragraph">
+        {% blocktrans %}
+        con compañeros de tu año, división, un deporte o taller
+        {% endblocktrans %}
+      </p>
+    </div><!-- Featurette -->
+
+    <div class="Featurette col-sm-4">
+      <img class="Featurette-img" src="{% static 'exalumnos/images/featurette__comparti--230x145.png' %}"  alt="Avioncito y mundo" />
+      <h2 class="Featurette-heading">{% trans 'Compartí' %}</h2>
+      <p class="Featurette-paragraph">
+        {% blocktrans %}
+        tus experiencias, conocimientos, intereses o proyectos
+        {% endblocktrans %}
+      </p>
+    </div><!-- Featurette -->
+
+  </div><!-- FeaturettesList -->
+
+  {% if not user.is_authenticated %}
+  <div class="CallToAction CallToAction--portada">
+    <a class="CallToAction-btn btn btn-primary btn-block" href="{% url 'account_signup' %}">{% trans 'Unite' %}</a>
+  </div><!-- CallToAction -->
+  {% endif %}
+
+</div><!-- .Page-container -->
+{% endblock %}

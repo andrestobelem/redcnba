@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<label class="control-label" for="{{ field.id_for_label }}">
+  {% if label %}
+    {% trans label %}
+  {% else %}
+    {{ field.label }}
+  {% endif %}
+</label>

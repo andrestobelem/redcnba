@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% if help_text %}
+  <div class="help-block">
+    {% trans help_text %}
+  </div>
+{% else %}
+  {% if field.help_text %}
+  <div class="help-block">
+    <p>{{ field.help_text }}</p>
+  </div>
+  {% endif %}
+{% endif %}

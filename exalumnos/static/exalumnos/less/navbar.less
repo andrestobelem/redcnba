@@ -1,0 +1,47 @@
+.navbar--main {
+
+  border: none;
+  background-color: #22222c;
+
+  .navbar-header,
+  .navbar-left,
+  .navbar-right {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .navbar-brand {
+    font-size: ceil(@font-size-base * 1.4); // ~ 20px
+    font-weight: 400;
+    &-highlight {
+      color: @navbar-inverse-brand-highlight-color;
+    }
+  }
+
+  .navbar-form {
+    // Removemos unos paddings que estaban pensados para ser usados si el form se colapsaba dentro de navbar-collapse.
+    // En nuestro caso, el navbar-form está por fuera de navbar-collapse, y estos paddings, en mobile, desalinean verticalmente
+    // el form.
+    padding-top:0;
+    padding-bottom:0;
+    border: none;
+    .box-shadow(none);
+  }
+
+  .navbar-link--que-es  {
+    color: @gray-light;
+    font-weight: normal;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .navbar-nav {
+    font-weight: normal;
+    
+    > li.nav-item--help > a {
+      color: @brand-primary;
+    }
+    
+  }
+}

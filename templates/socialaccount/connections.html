@@ -1,0 +1,62 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Conexión de cuentas externas" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Conexión de cuentas" %}{% endblock %}
+
+{% block panel_body %}
+
+  {% if form.accounts %}
+  <p>{% blocktrans %}Podés iniciar sesión en tu cuenta de Red CNBA  usando cualquiera de los siguientes proveedores:{% endblocktrans %}</p>
+
+  <form class="AccountForm" method="post" action="{% url 'socialaccount_connections' %}">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+
+    {% include form_errors %}
+
+    {% for base_account in form.accounts %}
+    {% with base_account.get_provider_account as account %}
+    <div class="radio">
+      <label class="control-label" for="id_account_{{base_account.id}}">
+        <input id="id_account_{{base_account.id}}" type="radio" name="account" value="{{base_account.id}}" />
+        <span class="SocialAccounts-providerLabel SocialAccounts-providerLabel--{{base_account.provider}} SocialAccounts-providerLabel--{{account.get_brand.id}}">{{account.get_brand.name}}</span>
+        <span class="SocialAccounts-accountName">{{account}}</span>
+      </label>
+    </div>
+    {% endwith %}
+    {% endfor %}
+
+    <div class="form-actions">
+      <button class="btn btn-primary btn-lg"  type="submit">{% trans 'Remover' %}</button>
+    </div>
+
+  </form>
+
+  {% else %}
+
+  <p>{% trans 'Actualmente no tenés ninguna cuenta externa conectada a tu cuenta de Red CNBA.' %}</p>
+  {% endif %}
+
+  <p>{% trans 'Asociá una de tus cuentas externas a tu cuenta de Red CNBA:' %}</p>
+
+  {% if socialaccount.providers  %}
+
+    <div class="SocialAccounts">
+      <ul class="SocialAccounts-providersList">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+    </div><!-- .SocialAccounts -->
+
+  {% endif %}
+
+{% endblock %}
+
+{% if socialaccount.providers  %}
+  {% block js_bottom %}
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {{ block.super }}
+  {% endblock %}
+{% endif %}
+

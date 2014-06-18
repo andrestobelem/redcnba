@@ -1,0 +1,228 @@
+{% extends "exalumnos/__base.html" %}
+{% load i18n staticfiles %}
+
+{% block body_attrs %}{% with body_class="Page" %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block title %}{{ exalumno.nombre }} {{ exalumno.apellido }} | {% trans 'Perfil' %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container Page-container">
+  <div class="row">
+
+    <div class="Page-mainbar col-xs-12">
+      
+      <div class="UserCard UserCard--large">
+        <span class="UserCard-imgWrapper">
+          <img class="UserCard-img" width="262" src="{% static 'exalumnos/images/avatar--mbutelman.jpg' %}" />
+        </span>
+        <div class="UserCard-body">
+          <h2 class="UserCard-heading">{{ exalumno.nombre }} {{ exalumno.apellido }}</h2>
+          <p class="UserCard-dataBlock">                    
+            {% if exalumno.promocion or exalumno.division %}
+            <span class="UserCard-dataGroup UserCard-dataGroup--promocion-division">
+              {% if exalumno.promocion %}
+                <span class="UserCard-data UserCard-data--promocion">
+                  {{ exalumno.promocion }}{% if exalumno.division %},{% endif %}
+                </span>
+              {% endif %}                                        
+              {% if exalumno.division %}
+                <span class="UserCard-data UserCard-data--division">
+                  {{ exalumno.division }}
+                </span>
+              {% endif %}
+                <br />
+            </span>
+            {% endif %}
+
+            {# if exalumno.ciudad or exalumno.pais #}
+            <span class="UserCard-dataGroup UserCard-dataGroup--ciudad-pais">
+              {# if exalumno.ciudad #}
+                <span class="UserCard-data UserCard-data--ciudad">
+                  {{ exalumno.ciudad }} Buenos Aires{# if exalumno.pais #}, {# endif #}
+                </span>
+              {# endif #}
+              {# if exalumno.pais #}                    
+                <span class="UserCard-pais UserCard-data--pais">
+                  {{ exalumno.pais }} Argentina
+                </span>
+              {# endif #}
+              <br />
+            </span>
+            {# endif #}
+            
+            {# if exalumno.ocupacion #}
+            <span class="UserCard-dataGroup UserCard-dataGroup--ocupacion">
+              <span class="UserCard-data UserCard-data--ocupacion">
+                {{ exalumno.ocupacion }} Licenciado en Letras
+              </span>
+            {# endif #}
+            </span>
+          </p>
+        </div><!-- UserCard-body -->
+      </div><!-- UserCard -->
+
+      <div class="panel panel--userProfile panel--seccionCNBA">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'CNBA' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+          
+          <h4 class="panel-subtitle">{% trans  '5to' %}</h4>
+          <ul class="List list-unstyled">
+            <li>
+              <span class="List-label">{% trans 'Año' %}</span>
+              <span class="List-value">{{ exalumno.promocion|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'División' %}</span>
+              <span class="List-value">{{ exalumno.division|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Hizo 6to' %}</span>
+              <span class="List-value">{{ exalumno.hizo_sexto|yesno:"Sí,No" }}</span>
+            </li>
+          </ul>
+
+          <ul class="List list-unstyled">
+            <li>
+              <span class="List-label">{% trans 'Deportes' %}</span>
+              <span class="List-value">{{ exalumno.deportes|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Talleres' %}</span>
+              <span class="List-value">{{ exalumno.tallleres|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Una anécdota, un recuerdo' %}</span>
+              <span class="List-value">{{ exalumno.recuerdos|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Participa del Torneo de Ex Alumnos' %}</span>
+              <span class="List-value">{{ exalumno.participa_en_el_torneo|yesno:"Sí,No" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Miembro de la Asociación de Ex Alumnos' %}</span>
+              <span class="List-value">{{ exalumno.es_socio|yesno:"Sí,No" }}</span>
+            </li>            
+            <li>
+              <span class="List-label">{% trans 'Empadronado para votar en el CER' %}</span>
+              <span class="List-value">{{ exalumno.esta_empadronado|yesno:"Sí,No" }}</span>
+            </li> 
+          </ul>
+          
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionCNBA -->
+
+      <div class="panel panel--userProfile panel--seccionSobreVos">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Sobre vos' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+
+          <ul class="List list-unstyled">
+            <li>
+              <span class="List-label">{% trans 'Descripción' %}</span>
+              <span class="List-value">{{ exalumno.descripcion|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Introducción' %}</span>
+              <span class="List-value">{{ exalumno.introduccion|default:"&#8230;" }}</span>
+            </li>
+            <li>
+              <span class="List-label">{% trans 'Intereses' %}</span>
+              <span class="List-value">{{ exalumno.intereses|default:"&#8230;" }}</span>
+            </li>                         
+         </ul>
+
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionSobreVos -->      
+
+{% comment %}
+
+      <div class="panel panel--userProfile panel--seccionLugares">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Lugares' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>{% trans 'Lugar de residencia actual' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Lugares de residencia anteriores' %}</dt>
+            <dd>&#8230;</dd>
+          </dl>
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionLugares -->
+
+      <div class="panel panel--userProfile panel--seccionFormacion">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Formación' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>{% trans 'Institución' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Especialización o campo' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Año de inicio' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Año de fin' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Actual' %}</dt>
+            <dd>&#8230;</dd>                        
+            <dt>{% trans 'Descripción' %}</dt>
+            <dd>&#8230;</dd>
+          </dl>
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionFormacion -->
+
+      <div class="panel panel--userProfile panel--seccionTrabajo">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Trabajo' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>{% trans 'Ocupación' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Habilidades, idiomas, et cetera' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Empleo' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Organización' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Año de inicio' %}</dt>
+            <dd>&#8230;</dd>                        
+            <dt>{% trans 'Año de fin' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Actual' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Descripción' %}</dt>
+            <dd>&#8230;</dd>
+          </dl>
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionTrabajo -->
+
+      <div class="panel panel--userProfile panel--seccionContacto">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% trans 'Contacto' %}</h3>
+        </div><!-- .panel-heading -->
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>{% trans 'Dirección de correo electrónico' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Número de teléfono' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Perfiles en redes sociales' %}</dt>
+            <dd>&#8230;</dd>
+            <dt>{% trans 'Sitio-web' %}</dt>
+            <dd>&#8230;</dd>
+          </dl>
+        </div><!-- .panel-body -->
+      </div><!-- .panel--seccionContacto -->
+
+{% endcomment %}
+      
+    </div><!-- .Page-mainbar -->
+
+  </div><!-- .row -->
+</div><!-- .Page-container -->  
+{% endblock %}

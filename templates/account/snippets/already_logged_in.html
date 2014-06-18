@@ -1,0 +1,10 @@
+{% load i18n %}
+{% load account %}
+
+{% user_display user as user_display %}
+
+{% blocktrans %}
+<div class="alert alert-warning">
+  <strong>Atención:</strong> ya iniciaste sesión como {{ user_display }}.
+</div>
+{% endblocktrans %}

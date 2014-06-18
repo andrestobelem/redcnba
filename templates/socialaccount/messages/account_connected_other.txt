@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Esa cuenta externa  ya está conectada a otra cuenta de Red CNBA.{% endblocktrans %}

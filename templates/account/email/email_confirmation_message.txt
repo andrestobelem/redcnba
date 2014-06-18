@@ -1,0 +1,13 @@
+{% load account i18n %}{% user_display user as user_display %}{% autoescape off %}{% blocktrans with current_site.name as site_name %}
+
+
+La dirección {{ user_display }} fue utilizada para crear una cuenta en {{ site_name }}.
+
+Si esto es correcto, por favor, accedé al enlace que figura a continuación para avanzar con la creación de la cuenta.
+
+{{ activate_url }}
+
+Si no solicitaste la creación de una cuenta, por favor, ignorá este mensaje.
+
+{% endblocktrans %}{% endautoescape %}
+

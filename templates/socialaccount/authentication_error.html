@@ -1,0 +1,12 @@
+{% extends "socialaccount/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Fallo en el inicio de sesión a través de una cuenta externa" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Fallo en el inicio de sesión a través de una cuenta externa" %}{% endblock %}
+
+{% block panel_body %}
+
+    <p>{% trans "Ocurrió un error mientras se intentaba iniciar sesión a través de tu cuenta externa." %}</p>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Cuenta inactiva" %} | {{ block.super }}{% endblock %}
+
+{% block panel_title %}{% trans "Cuenta inactiva" %}{% endblock %}
+
+{% block panel_body %}
+
+  <p>{% trans "Esta cuenta está inactiva." %}</p>
+
+{% endblock %}
